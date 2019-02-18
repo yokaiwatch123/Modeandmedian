@@ -1,60 +1,91 @@
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Arrays;
+
+
+
 public class Modeandmedian
 {
-public static void main (String[]args){
-Scanner input = new Scanner(System.in);
-Random random = new Random();    
-int  i ,j,count,max,maxvalue,num;
+    public static int[] selection_sort(int[] new_arr)
+    {
+        int n = new_arr.length;
+        int min_index = 0;
+        for(int i = 0; i < n; i++)
+        {
+            min_index = i;
+            for(int j = i+1; j < n; j++){
+                if(new_arr[j] <= new_arr[min_index])
+                    min_index = j;                   //index of smallest element
+            }
+            int temp = new_arr[min_index];
+            new_arr[min_index] = new_arr[i];
+            new_arr[i] = temp;
 
-i = 0;
-j = 0;
-//numbers = 0;
-count = 0;
-//tmpcount=0;
-//mode =0;
-//maxcount =0;
-max =10;
-//mode2=0;
-num=0;
-int maxcount=0;
-int maxValue = 0;
-int numbers[] = new int[max];
-//int mode[] = new int [max];
-//int median[] =new int [max];
+        }
+        return new_arr;
+    }
 
-System.out.println ("input 10 nums");
-for ( i = 0; i < numbers.length; i++){
-num=input.nextInt();
-//num=random.nextInt(max);
-numbers [i] = num;
-}
+    public static void main (String[]args){
+        Scanner input = new Scanner(System.in);
+        Random random = new Random();
+        int  i ,j,count,max,maxvalue,num;
+
+        i = 0;
+        j = 0;
+        //numbers = 0;
+        count = 0;
+        //tmpcount=0;
+        //mode =0;
+        //maxcount =0;
+        max =10;
+        //mode2=0;
+        num=0;
+        int maxcount=0;
+        int maxValue = 0;
+        int numbers[] = new int[max];
+        //int mode[] = new int [max];
+        //int median[] =new int [max];
+
+        System.out.println ("input 10 numbers:- ");
+        for ( i = 0; i < numbers.length; i++){
+            num=input.nextInt();
+            //num=random.nextInt(max);
+            numbers [i] = num;
+        }
+
+        numbers = selection_sort(numbers);
+        System.out.println("Numbers in ascending order :- ");
+        System.out.println(Arrays.toString(numbers));
+
 //------------------------------------------------------------------------------------------
-for ( i = 0; i < numbers.length; i++){
-count = 0;
-for ( j = 0; j < numbers.length; j++){
-if (numbers[j] == numbers[i]) {
-count++;
-    
-
-}
-}
-if (count >= maxcount) {
-maxValue = numbers[i];
-maxcount = count;
-
-}
-}
-System.out.println("The mode is :" + maxValue);
-//Find the median 
-//THE median wont print it prints a random number 
-if (numbers.length % 2 != 0){
-System.out.println("The median is:" + numbers[numbers.length/2]); 
-}else{
-System.out.println("The median is:" + numbers[numbers.length/2] + numbers[numbers.length/2-1]/2);
-}
+        for ( i = 0; i < numbers.length; i++){
+            count = 0;
+            for ( j = 0; j < numbers.length; j++){
+                if (numbers[j] == numbers[i]) {
+                    count++;
 
 
+                }
+            }
+            if (count >= maxcount) {
+                maxValue = numbers[i];
+                maxcount = count;
 
-}
+            }
+        }
+        if(maxcount > 1)
+            System.out.println("The mode is :" + maxValue);
+        else
+            System.out.println("Mode does not exist for given list of numbers");
+        //Find the median
+        //THE median wont print it prints a random number
+        if (numbers.length % 2 == 0){
+            System.out.println("The median is:" + numbers[(numbers.length/2)-1]);
+        }else{
+            System.out.println("The median is:" + numbers[((numbers.length + 1)/2)-1]);
+        }
+
+
+
+    }
 }
